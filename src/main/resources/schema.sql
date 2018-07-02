@@ -1,0 +1,38 @@
+--DROP DATABASE IF EXISTS fifa;
+CREATE DATABASE IF NOT EXISTS fifa
+	CHARACTER SET utf8
+	COLLATE utf8_general_ci;
+
+USE fifa;
+
+Drop table if exists player;
+drop table if exists team;
+
+CREATE TABLE fifa.team (
+  team_id INT(11) NOT NULL,
+  country VARCHAR(255) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (team_id)
+)
+ENGINE = INNODB
+AVG_ROW_LENGTH = 8192
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+ROW_FORMAT = DYNAMIC;
+
+CREATE TABLE fifa.player (
+  player_id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  `position` VARCHAR(255) NOT NULL,
+  shirt_number VARCHAR(255) NOT NULL,
+  team_id INT(11) NOT NULL,
+  PRIMARY KEY (player_id),
+  CONSTRAINT FK_Team FOREIGN KEY (team_id)
+    REFERENCES fifa.team(team_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 6
+AVG_ROW_LENGTH = 3276
+CHARACTER SET utf8
+COLLATE utf8_general_ci
+ROW_FORMAT = DYNAMIC;
